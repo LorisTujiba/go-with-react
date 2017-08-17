@@ -1,30 +1,30 @@
 package main
 
 import (
-  "models"
-  "encoding/json"
-  "log"
-  "net/http"
+	"net/http"
+
+	mgo "gopkg.in/mgo.v2"
+
+	"github.com/LorisTujiba/go-with-react/controllers"
+	"github.com/julienschmidt/httprouter"
+	"github.com/rs/cors"
 )
 
-func index(w http.ResponseWriter, r *http.Request){
-
-    payload := models.User{
-      Name : "Loris",
-      Age : 23,
-    }
-
-    err := json.NewEncoder(w).Encode(payload)
-  	if err != nil {
-  		log.Println(err)
-  	}
-
-    w.Header().Set("Content-Type","application/json")
-    w.WriteHeader(http.StatusOK)
-
+func getSession() *mgo.Session {
+	s, err := mgo.Dial("mongodb://localhost")
+	if err != nil {
+		panic(err)
+	}
+	return s
 }
 
-func main(){
-  http.HandleFunc("/",index)
-  http.ListenAndServe(":8080",nil)
+func main() {
+	r := httprouter.New()
+	uc := controllers.NewUserController(getSession())
+	pc := controllers.NewPostController(getSession())
+	r.GET("/users", uc.GetUsers)
+	r.POST("/users", uc.CreateUser)
+	r.GET("/posts", pc.GetPosts)
+	handler := cors.Default().Handler(r)
+	http.ListenAndServe(":8080", handler)
 }
