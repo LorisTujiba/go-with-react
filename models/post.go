@@ -35,3 +35,24 @@ func AllPosts() ([]Post, error) {
 	}
 	return posts, nil
 }
+
+func PartialPosts(offset int) ([]Post, error) {
+	s, err := mgo.Dial("mongodb://localhost/go-with-react")
+	if err != nil {
+		panic(err)
+	}
+
+	if err = s.Ping(); err != nil {
+		panic(err)
+	}
+
+	DB = s.DB("go-with-react")
+	Posts = DB.C("posts")
+
+	posts := []Post{}
+	err = Posts.Find(bson.M{}).Skip(offset).Limit(5).All(&posts)
+	if err != nil {
+		return nil, err
+	}
+	return posts, nil
+}

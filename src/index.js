@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './pages/Home';
+import Home from './pages/Home.jsx';
 import UsersMaster from './pages/UsersMaster';
 import PostsMaster from './pages/PostsMaster';
 import { createStore, applyMiddleware } from 'redux';
-import { connect, Provider } from 'react-redux';
+import { Provider } from 'react-redux';
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import ReduxPromise from 'redux-promise';
 import reducers from './reducers/index';

@@ -25,6 +25,7 @@ func main() {
 	r.GET("/users", uc.GetUsers)
 	r.POST("/users", uc.CreateUser)
 	r.GET("/posts", pc.GetPosts)
+	r.GET("/posts/:offset", pc.GetPartialPost)
 	handler := cors.Default().Handler(r)
 	http.ListenAndServe(":8080", handler)
 }
