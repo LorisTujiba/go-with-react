@@ -4,7 +4,9 @@ import _ from "lodash";
 export default function(state = {}, action){
   switch(action.type){
     case LAZY_FETCH_POSTS :
-      return _.mapKeys(action.payload.data, 'id')
+      const newState = _.mapKeys(action.payload.data, 'id');
+      const combined = _.merge(state,newState)
+      return _.mapKeys(combined,'id')
     case FETCH_POSTS :
       return _.mapKeys(action.payload.data, 'id')
     default :
