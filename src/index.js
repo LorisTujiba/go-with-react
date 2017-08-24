@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Home from './pages/Home.jsx';
+import Home from './pages/Home.js';
 import UsersMaster from './pages/UsersMaster';
 import PostsMaster from './pages/PostsMaster';
 import { createStore, applyMiddleware } from 'redux';

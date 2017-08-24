@@ -17,12 +17,11 @@ class UsersMaster extends Component {
         return(
           <Panel key={user.id} header={user.username} bsStyle="info">
             password : {user.password}
-          </Panel>
+          </Panel>          
         )
       })
     )
   }
-
   render() {
     return (
       <div>
