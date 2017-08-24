@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Jumbotron, Row, Col, Panel } from 'react-bootstrap';
+import { Grid, Jumbotron, Panel } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { lazyFetchPosts } from '../actions/index';
 import _ from 'lodash';
@@ -38,7 +38,7 @@ class Home extends Component {
     const html = document.documentElement;
     const docHeight = Math.max(body.scrollHeight, body.offsetHeight, html.clientHeight,  html.scrollHeight, html.offsetHeight);
     const windowBottom = windowHeight + window.pageYOffset;
-    if (windowBottom >= docHeight ) {
+    if (windowBottom >= docHeight && this.props.posts.next_data) {
       this.setState({
         offset : this.state.offset + 5
       });
@@ -48,10 +48,10 @@ class Home extends Component {
 
   renderPosts(){
     return(
-      _.map(this.props.posts, post => {
+      _.map(this.props.posts.posts, post => {
         return(
-          <LazyLoad key={post.id} >
-            <Panel header={post.title}>
+          <LazyLoad height={300} key={post.id} >
+            <Panel bsStyle="success" header={post.title} footer={post.username}>
               {post.body}
             </Panel>
           </LazyLoad>
@@ -66,7 +66,7 @@ class Home extends Component {
         <Header marginBottom={"-20px"} />
         <Jumbotron>
           <Grid>
-            <h1>{this.state.offset}</h1>
+            <h1>Hiya!</h1>
             <p>This is a simple application that uses golang as webservices and react js as the front end.</p>
           </Grid>
         </Jumbotron>
@@ -87,4 +87,3 @@ function mapStateToPost(state){
 }
 
 export default connect(mapStateToPost,{ lazyFetchPosts })(Home);
-

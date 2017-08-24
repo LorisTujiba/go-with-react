@@ -32,7 +32,7 @@ class Header extends Component {
               <LinkContainer to="/users">
                 <MenuItem eventKey={2.1}>User</MenuItem>
               </LinkContainer>
-              <LinkContainer to="/posts">
+              <LinkContainer to="/posts/new">
                 <MenuItem eventKey={2.2}>Post</MenuItem>
               </LinkContainer>
             </NavDropdown>

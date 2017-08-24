@@ -24,7 +24,6 @@ export function fetchPosts(){
 
 export function lazyFetchPosts(offset){
   const req = axios.get("http://localhost:8080/posts/"+offset)
-
   return{
     type : LAZY_FETCH_POSTS,
     payload : req
